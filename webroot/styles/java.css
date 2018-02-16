@@ -1,0 +1,38 @@
+
+/*MEMORY GAMES*/
+.container{
+    text-align: center;
+}
+.game_grid{
+padding-left: 0;
+    text-align: center;
+    width: 50%;
+    height: auto;
+    border: 3px solid black;
+    margin: auto;
+    background:navajowhite ;
+}
+.slide,.slide1{
+    display: inline-block;
+    padding: 3%;
+    border: 1px solid black;
+    margin: 10px;
+    background: white;
+}
+img {
+    width: 100px;
+    height:auto;
+}
+ul li {
+    list-style: none;
+}
+.shuffling{
+    margin-top: 20px;
+}
+.selected{
+filter: brightness(100%)!important;
+}
+.hide{
+    display: none;
+}
+/*END MEMORY GAMES*/
