@@ -3,15 +3,34 @@ $(function () {
 
 // MEMORY GAME
 
+    function countDown(i) {
+        $int = setInterval(function () {
+            $vreme = document.getElementById("score").innerHTML = "Timer: " + i;
+            i++
+        }, 1000);
+    }
+
     var ul = document.querySelector('ul');
     var li = $('ul').children();
+    var $btn_start = document.getElementById("btn");
+
 
     $("#btn").on("click",function () {
-
-        $('li').css({"filter":"brightness(1%)","cursor":"pointer"});
+        $($btn_start).hide();
+        $('li').addClass('hide');
         for (var i = ul.children.length; i >= 0; i--) {
             ul.appendChild(ul.children[Math.random() * i | 0]);
         }
+        countDown(1);
+        $("#btn").on("click",function () {
+
+            $('li').removeClass('show selected');
+            $('li').addClass('hide');
+            for (var i = ul.children.length; i >= 0; i--) {
+                ul.appendChild(ul.children[Math.random() * i | 0]);
+            }
+            countDown(1);
+        });
     });
 
     var $clickOne;
@@ -23,36 +42,36 @@ $(function () {
 
             $clickOne = $(this).attr('id');
             $clickOneObject = $(this);
-            console.log("first " + $clickOne);
             $(this).addClass("selected");
 
-            $(".slide").unbind().on("click",function (e) {
+            $(".slide").not(".selected").unbind().on("click",function (e) {
                 $clickTwo = $(this).attr('id');
                 $clickTwoObject = $(this);
                 $(this).addClass("selected");
-                console.log("second " + $clickTwo);
 
                 setTimeout(function () {
                     if ($clickOne === $clickTwo) {
-                        console.log("same!");
-                        $clickTwoObject.addClass('hide');
-                        $clickTwoObject.siblings('.selected').addClass('hide');
+                        $clickTwoObject.removeClass('hide').addClass('show');
+                        $clickTwoObject.siblings('.selected').removeClass('hide').addClass('show');
+                    } if ($('.hide').length < 1){
+                        alert("Your score is :" + $vreme  + "s");
+                        clearInterval($int);
+                        $($btn_start).show().html("PLAY AGAIN!");
                     }
                     else {
                         $clickOneObject.removeClass('selected');
                         $clickOneObject.siblings('.selected').removeClass("selected");
-                        console.log("not same!");
                     }
-                },900);
+                },500);
                 memory();
-
             });
         });
-
     }
     memory();
 
+
 // END MEMORY GAME
+
 
 });
 
